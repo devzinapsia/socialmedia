@@ -1,0 +1,399 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* social_twitter_extended
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-27 21:16+0000\n"
+"PO-Revision-Date: 2026-09-27 21:16+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_post_template.py:0
+msgid ""
+"%(current_length)s characters (Pro account: the length is validated by X)"
+msgstr "%(current_length)s caracteres (cuenta Pro: X valida la longitud)"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_post.py:0
+msgid "%(post)s: thread post %(index)s (max %(max_chars)s chars)"
+msgstr ""
+"%(post)s: publicación %(index)s del hilo (máx. %(max_chars)s caracteres)"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid ""
+"Articles can only be published with an X account flagged as Pro account "
+"(%(account)s is not)."
+msgstr ""
+"Los Artículos solo se pueden publicar con una cuenta de X marcada como "
+"cuenta Pro (%(account)s no lo está)."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__body
+msgid "Body"
+msgstr "Cuerpo"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__utm_campaign_id
+msgid "Campaign"
+msgstr "Campaña"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_account__is_pro_account
+msgid ""
+"Configuration flag only: Odoo does not check the real X subscription. When "
+"set, posts are no longer checked against the standard X character limit in "
+"Odoo and X itself accepts or rejects the text."
+msgstr ""
+"Solo es una marca de configuración: Odoo no verifica la suscripción real en "
+"X. Si está activa, Odoo deja de controlar las publicaciones contra el límite"
+" estándar de caracteres de X y es X quien acepta o rechaza el texto."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__cover_image
+msgid "Cover image"
+msgstr "Imagen de portada"
+
+#. module: social_twitter_extended
+#: model_terms:ir.actions.act_window,help:social_twitter_extended.action_social_x_article
+msgid "Create an X Article"
+msgstr "Crear un Artículo de X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__create_uid
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__create_date
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_account__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_template__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_utm_campaign__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__state__draft
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_post.py:0
+msgid ""
+"Due to length restrictions, the following thread posts cannot be posted:\n"
+"%s"
+msgstr ""
+"Debido a restricciones de longitud, no se pueden publicar las siguientes publicaciones del hilo:\n"
+"%s"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__state__error
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "Error"
+msgstr "Error"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__error_message
+msgid "Error message"
+msgstr "Mensaje de error"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__twitter_fixed_reply_template
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_fixed_reply_template
+#: model:ir.model.fields,field_description:social_twitter_extended.field_utm_campaign__twitter_fixed_reply_template
+msgid "Fixed reply template for X"
+msgstr "Comentario fijo para X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_account__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_template__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_utm_campaign__id
+msgid "ID"
+msgstr "ID"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__is_thread
+msgid "Is a thread"
+msgstr "Es un hilo"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__write_uid
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__write_date
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__company_id
+msgid ""
+"Link an account to a company to restrict its usage or keep empty to let all "
+"companies use it."
+msgstr ""
+"Vincule una cuenta a una empresa para restringir su uso o manténgalo vacío "
+"para dejar que otras empresas lo usen."
+
+#. module: social_twitter_extended
+#: model_terms:ir.actions.act_window,help:social_twitter_extended.action_social_x_article
+msgid ""
+"Long-form rich text posts, published with an X account flagged as Pro "
+"account."
+msgstr ""
+"Publicaciones largas con texto enriquecido, publicadas con una cuenta de X "
+"marcada como cuenta Pro."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__account_id
+msgid "Only X accounts flagged as Pro accounts can publish Articles."
+msgstr ""
+"Solo las cuentas de X marcadas como cuentas Pro pueden publicar Artículos."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_account__is_pro_account
+msgid "Pro account (extended character limit and Articles)"
+msgstr "Cuenta Pro (caracteres extendidos y Artículos)"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Publish"
+msgstr "Publicar"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_post__is_thread
+msgid ""
+"Publish the posts below on X as replies chained to the main post, in order."
+msgstr ""
+"Publica en X las publicaciones de abajo como respuestas encadenadas a la "
+"publicación principal, en orden."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__state__published
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "Published"
+msgstr "Publicado"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Published on X"
+msgstr "Publicado en X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__twitter_reply_url
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_reply_url
+msgid "Reply URL for X"
+msgstr "URL de respuesta para X"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Reset to draft"
+msgstr "Restablecer a borrador"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_account
+msgid "Social Account"
+msgstr "Cuenta de red social"
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_live_post
+msgid "Social Live Post"
+msgstr "Publicación en redes sociales en vivo"
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_post
+msgid "Social Post"
+msgstr "Publicación en redes sociales"
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_post_template
+msgid "Social Post Template"
+msgstr "Plantilla de publicación en redes sociales"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__post_id
+msgid "Social post"
+msgstr "Publicación en redes sociales"
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_post_thread_line
+msgid "Social post thread line"
+msgstr "Línea de hilo de publicación en redes sociales"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__state
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "Status"
+msgstr "Estado"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__body
+msgid "Text"
+msgstr "Texto"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_post__twitter_fixed_reply_template
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__twitter_fixed_reply_template
+#: model:ir.model.fields,help:social_twitter_extended.field_utm_campaign__twitter_fixed_reply_template
+msgid ""
+"Text posted on X as an automatic reply to the posts and Articles of this "
+"campaign, followed by the URL set on each of them (e.g. \"Learn more at:\")."
+msgstr ""
+"Texto que se publica en X como respuesta automática a las publicaciones y "
+"Artículos de esta campaña, seguido de la URL indicada en cada uno (p. ej., "
+"\"Conoce más en:\")."
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "The Article \"%s\" is already published."
+msgstr "El Artículo \"%s\" ya está publicado."
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "The Article was published, but the campaign reply failed: %(error)s"
+msgstr ""
+"El Artículo se publicó, pero falló la respuesta de la campaña: %(error)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "The body of the Article \"%s\" is empty."
+msgstr "El cuerpo del Artículo \"%s\" está vacío."
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_live_post.py:0
+msgid ""
+"The main post and %(posted)s thread post(s) were published, but thread post "
+"%(index)s of %(total)s failed: %(error)s"
+msgstr ""
+"Se publicaron la publicación principal y %(posted)s publicación(es) del "
+"hilo, pero falló la publicación %(index)s de %(total)s del hilo: %(error)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_live_post.py:0
+msgid "The post was published, but the campaign reply failed: %(error)s"
+msgstr ""
+"La publicación se publicó, pero falló la respuesta de la campaña: %(error)s"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__thread_line_ids
+msgid "Thread posts"
+msgstr "Publicaciones del hilo"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__title
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Title"
+msgstr "Título"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_post__twitter_reply_url
+msgid ""
+"URL posted on X after the fixed reply of the campaign, as a reply to the "
+"last post published (the main post, or the last post of the thread)."
+msgstr ""
+"URL que se publica en X después del comentario fijo de la campaña, como "
+"respuesta a la última publicación (la principal o la última del hilo)."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__twitter_reply_url
+msgid ""
+"URL posted on X after the fixed reply of the campaign, as a reply to the "
+"post of the published Article."
+msgstr ""
+"URL que se publica en X después del comentario fijo de la campaña, como "
+"respuesta a la publicación del Artículo publicado."
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_utm_campaign
+msgid "UTM Campaign"
+msgstr "Campaña UTM"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Write or paste the Article here..."
+msgstr "Escriba o pegue el Artículo aquí..."
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_x_article
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "X Article"
+msgstr "Artículo de X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_article_id
+msgid "X Article id"
+msgstr "ID del Artículo en X"
+
+#. module: social_twitter_extended
+#: model:ir.actions.act_window,name:social_twitter_extended.action_social_x_article
+#: model:ir.ui.menu,name:social_twitter_extended.menu_social_x_article
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_list
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "X Articles"
+msgstr "Artículos de X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__account_id
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "X account"
+msgstr "Cuenta de X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_url
+msgid "X link"
+msgstr "Enlace en X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_post_id
+msgid "X post id"
+msgstr "ID de la publicación en X"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.utm_campaign_view_form_inherit_twitter_extended
+msgid "e.g. Learn more at:"
+msgstr "p. ej., Conoce más en:"

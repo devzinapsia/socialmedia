@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="social_x_article_view_form" model="ir.ui.view">
+        <field name="name">social.x.article.view.form</field>
+        <field name="model">social.x.article</field>
+        <field name="arch" type="xml">
+            <form string="X Article">
+                <header>
+                    <button name="action_publish" string="Publish" type="object" class="oe_highlight"
+                        invisible="state == 'published'" groups="social.group_social_user"/>
+                    <button name="action_set_draft" string="Reset to draft" type="object"
+                        invisible="state != 'error'" groups="social.group_social_user"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="alert alert-danger" role="alert" invisible="not error_message">
+                        <field name="error_message" nolabel="1"/>
+                    </div>
+                    <field name="cover_image" widget="image" class="oe_avatar"
+                        readonly="state == 'published'"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="title" placeholder="Title" readonly="state == 'published'"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="account_id" options="{'no_create': True}"
+                                readonly="state == 'published'"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="utm_campaign_id" readonly="state == 'published'"
+                                context="{'form_view_ref': 'social.utm_campaign_view_form_quick_create_social'}"/>
+                            <field name="twitter_fixed_reply_template" invisible="1"/>
+                            <field name="twitter_reply_url" widget="url"
+                                invisible="not twitter_fixed_reply_template"
+                                readonly="state == 'published'"/>
+                        </group>
+                    </group>
+                    <group string="Published on X" invisible="not twitter_article_id and not twitter_post_id">
+                        <field name="twitter_url" widget="url" invisible="not twitter_url"/>
+                        <field name="twitter_article_id"/>
+                        <field name="twitter_post_id" invisible="not twitter_post_id"/>
+                    </group>
+                    <field name="body" widget="html" placeholder="Write or paste the Article here..."
+                        readonly="state == 'published'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="social_x_article_view_list" model="ir.ui.view">
+        <field name="name">social.x.article.view.list</field>
+        <field name="model">social.x.article</field>
+        <field name="arch" type="xml">
+            <list string="X Articles">
+                <field name="title"/>
+                <field name="account_id"/>
+                <field name="utm_campaign_id"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="state" widget="badge"
+                    decoration-info="state == 'draft'"
+                    decoration-success="state == 'published'"
+                    decoration-danger="state == 'error'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="social_x_article_view_search" model="ir.ui.view">
+        <field name="name">social.x.article.view.search</field>
+        <field name="model">social.x.article</field>
+        <field name="arch" type="xml">
+            <search string="X Articles">
+                <field name="title"/>
+                <field name="account_id"/>
+                <field name="utm_campaign_id"/>
+                <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Published" name="filter_published" domain="[('state', '=', 'published')]"/>
+                <filter string="Error" name="filter_error" domain="[('state', '=', 'error')]"/>
+                <group>
+                    <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
+                    <filter string="X account" name="group_by_account" context="{'group_by': 'account_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_social_x_article" model="ir.actions.act_window">
+        <field name="name">X Articles</field>
+        <field name="res_model">social.x.article</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Create an X Article</p>
+            <p>Long-form rich text posts, published with an X account flagged as Pro account.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_social_x_article"
+        name="X Articles"
+        parent="social.menu_social_global"
+        action="action_social_x_article"
+        groups="social.group_social_user"
+        sequence="25"/>
+</odoo>

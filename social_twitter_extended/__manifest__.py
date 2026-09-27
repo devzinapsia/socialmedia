@@ -1,0 +1,27 @@
+{
+    "name": "Social X extended",
+    "summary": "Pro accounts, threads, campaign replies and Articles for X",
+    "version": "19.0.1.0.0",
+    "category": "Marketing/Social Marketing",
+    "license": "AGPL-3",
+    "author": "Zinapsia",
+    "website": "https://www.zinapsia.com",
+    "depends": [
+        "social",
+        "social_twitter",
+        "utm",
+        "html_editor",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "security/social_twitter_extended_security.xml",
+        "views/social_account_views.xml",
+        "views/social_post_views.xml",
+        "views/utm_campaign_views.xml",
+        "views/social_twitter_templates.xml",
+        "views/social_x_article_views.xml",
+    ],
+    "auto_install": False,
+    "application": False,
+    "installable": True,
+}

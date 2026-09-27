@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Pro accounts: show the whole message in the preview instead of cutting it at the standard limit -->
+    <template id="twitter_preview_inherit_twitter_extended" inherit_id="social_twitter.twitter_preview">
+        <xpath expr="//span[@t-esc='message[:limit]']" position="attributes">
+            <attribute name="t-esc"/>
+            <attribute name="t-out">message if twitter_skip_limit else message[:limit]</attribute>
+        </xpath>
+    </template>
+</odoo>

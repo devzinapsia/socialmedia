@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="utm_campaign_view_form_inherit_twitter_extended" model="ir.ui.view">
+        <field name="name">utm.campaign.view.form.inherit.twitter.extended</field>
+        <field name="model">utm.campaign</field>
+        <field name="inherit_id" ref="social.utm_campaign_view_form"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="twitter_fixed_reply_template" groups="social.group_social_user"
+                    placeholder="e.g. Learn more at:"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="social_post_view_form_inherit_twitter_extended" model="ir.ui.view">
+        <field name="name">social.post.view.form.inherit.twitter.extended</field>
+        <field name="model">social.post</field>
+        <field name="inherit_id" ref="social.social_post_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='image_ids']" position="after">
+                <field name="is_thread"
+                    invisible="not has_twitter_account"
+                    readonly="state in ['posting', 'posted']"/>
+                <field name="thread_line_ids" colspan="2"
+                    invisible="not has_twitter_account or not is_thread"
+                    readonly="state in ['posting', 'posted']">
+                    <list editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="body"/>
+                    </list>
+                </field>
+            </xpath>
+            <field name="utm_campaign_id" position="after">
+                <field name="twitter_fixed_reply_template" invisible="1"/>
+                <field name="twitter_reply_url" widget="url"
+                    invisible="not has_twitter_account or not twitter_fixed_reply_template"
+                    readonly="state in ['posting', 'posted']"/>
+            </field>
+        </field>
+    </record>
+</odoo>

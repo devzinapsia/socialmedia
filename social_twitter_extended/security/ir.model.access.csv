@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_social_post_thread_line_user,social.post.thread.line.user,model_social_post_thread_line,social.group_social_user,1,1,1,1
+access_social_post_thread_line_manager,social.post.thread.line.manager,model_social_post_thread_line,social.group_social_manager,1,1,1,1
+access_social_x_article_user,social.x.article.user,model_social_x_article,social.group_social_user,1,1,1,1
+access_social_x_article_manager,social.x.article.manager,model_social_x_article,social.group_social_manager,1,1,1,1

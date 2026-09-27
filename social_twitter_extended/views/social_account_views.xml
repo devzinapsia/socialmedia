@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="social_account_view_form_inherit_twitter_extended" model="ir.ui.view">
+        <field name="name">social.account.view.form.inherit.twitter.extended</field>
+        <field name="model">social.account</field>
+        <field name="inherit_id" ref="social.social_account_view_form"/>
+        <field name="arch" type="xml">
+            <field name="media_id" position="after">
+                <field name="media_type" invisible="1"/>
+                <field name="is_pro_account" invisible="media_type != 'twitter'"/>
+            </field>
+        </field>
+    </record>
+</odoo>
