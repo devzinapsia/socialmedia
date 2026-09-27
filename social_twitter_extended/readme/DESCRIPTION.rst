@@ -77,8 +77,12 @@ shown as is in the *Error message* of the Article (the Article goes to
 
 Publishing an Article:
 
-#. uploads the cover image (if any) with the media upload of X, reusing
-   the upload of the ``social_twitter`` module;
+#. uploads the cover image (if any) with the v2 media upload of X
+   (initialize, append, finalize, then waits for X to process it when
+   needed). Unlike the upload of ``social_twitter``, every step is checked
+   and the full response of X is shown on error: the core only reads an
+   ``error`` key that the v2 API does not send, and its message ends with
+   an empty ``(error: )``;
 #. creates the draft (``POST /2/articles/draft``) with the title, the body
    and the cover;
 #. publishes it (``POST /2/articles/{id}/publish``), which returns the id

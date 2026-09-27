@@ -121,6 +121,69 @@ class TestXArticle(SocialTwitterExtendedCase):
         with self.assertRaises(UserError):
             article.action_publish()
 
+    def test_publish_from_list_action(self):
+        action = self.env.ref("social_twitter_extended.action_social_x_article_publish")
+        self.assertEqual(action.binding_model_id.model, "social.x.article")
+        self.assertEqual(action.binding_view_types, "list")
+        self.assertIn(self.env.ref("social.group_social_user"), action.group_ids)
+
+        articles = self._create_article() | self._create_article(title="Second")
+        with self.mock_x_api() as api:
+            action.with_context(active_model="social.x.article", active_ids=articles.ids).run()
+        self.assertEqual(articles.mapped("state"), ["published", "published"])
+        self.assertEqual(len([call for call in api.calls if call["url"].endswith("/publish")]), 2)
+
+        # A selection containing an already published Article is refused, without calling X
+        draft = self._create_article(title="Third")
+        with self.mock_x_api() as api, self.assertRaises(UserError):
+            action.with_context(active_model="social.x.article", active_ids=(articles | draft).ids).run()
+        self.assertFalse(api.calls)
+        self.assertEqual(draft.state, "draft")
+
+    def test_cover_upload_error_shows_x_response(self):
+        # X API v2 errors come in `title` / `detail`: the core read `error` and showed "(error: )"
+        error = ('{"title":"Forbidden","detail":"You are not permitted to perform this action.",'
+                 '"type":"about:blank","status":403}')
+        article = self._create_article(cover_image=PNG_1PX)
+        with self.mock_x_api(fail_on={1: error}) as api:
+            article.action_publish()
+        self.assertEqual(len(api.calls), 1)
+        self.assertEqual(article.state, "error")
+        self.assertIn("initialize, HTTP 403", article.error_message)
+        self.assertIn("You are not permitted to perform this action.", article.error_message)
+
+    def test_cover_append_or_finalize_error_stops_before_draft(self):
+        for step, number in (("append", 2), ("finalize", 3)):
+            article = self._create_article(cover_image=PNG_1PX)
+            with self.mock_x_api(fail_on={number: "rejected"}) as api:
+                article.action_publish()
+            self.assertEqual(len(api.calls), number, step)
+            self.assertFalse([call for call in api.calls if "/articles/" in call["url"]])
+            self.assertIn(f"({step}, HTTP 403): rejected", article.error_message)
+
+    def test_cover_waits_for_media_processing(self):
+        article = self._create_article(cover_image=PNG_1PX)
+        pending = {"data": {"id": "1001", "processing_info": {"state": "pending", "check_after_secs": 1}}}
+        succeeded = {"data": {"id": "1001", "processing_info": {"state": "succeeded"}}}
+        with self.mock_x_api(json_on={3: pending, 4: pending, 5: succeeded}) as api:
+            article.action_publish()
+        status_calls = [call for call in api.calls if call["method"] == "GET"]
+        self.assertEqual(len(status_calls), 2)
+        self.assertEqual(status_calls[0]["params"], {"command": "STATUS", "media_id": "1001"})
+        # The draft is created only once X has processed the image
+        self.assertTrue(api.calls[5]["url"].endswith("/2/articles/draft"))
+        self.assertEqual(article.state, "published")
+
+    def test_cover_processing_failed(self):
+        article = self._create_article(cover_image=PNG_1PX)
+        failed = {"data": {"id": "1001", "processing_info": {
+            "state": "failed", "error": {"message": "Unsupported image"}}}}
+        with self.mock_x_api(json_on={3: failed}) as api:
+            article.action_publish()
+        self.assertEqual(len(api.calls), 3)
+        self.assertEqual(article.state, "error")
+        self.assertIn("Unsupported image", article.error_message)
+
     def test_cover_image_is_sent_as_uploaded(self):
         article = self._create_article(cover_image=PNG_1PX)
         with self.mock_x_api() as api:

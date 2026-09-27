@@ -117,18 +117,10 @@ class SocialXArticle(models.Model):
                 error=str(error))
 
     def _upload_twitter_cover(self, account):
-        """Upload the cover through the core media upload of X and return the `cover_media` value."""
+        """Upload the cover image to X and return the `cover_media` value of the draft."""
         image_bytes = base64.b64decode(self.cover_image)
-        mimetype = guess_mimetype(image_bytes)
-        media_ids = account._format_images_twitter([{
-            "bytes": image_bytes,
-            "file_size": len(image_bytes),
-            "mimetype": mimetype,
-        }])
-        return {
-            "media_id": media_ids[0],
-            "media_category": "tweet_gif" if mimetype == "image/gif" else "tweet_image",
-        }
+        media_id, media_category = account._twitter_upload_image(image_bytes, guess_mimetype(image_bytes))
+        return {"media_id": media_id, "media_category": media_category}
 
     @api.model
     def _twitter_articles_request(self, account, path, payload=None):

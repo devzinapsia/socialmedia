@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-27 21:16+0000\n"
-"PO-Revision-Date: 2026-09-27 21:16+0000\n"
+"POT-Creation-Date: 2026-09-27 22:29+0000\n"
+"PO-Revision-Date: 2026-09-27 22:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_AR\n"
@@ -145,6 +145,32 @@ msgid "ID"
 msgstr "ID"
 
 #. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_account.py:0
+msgid "Image upload failed (%(step)s, HTTP %(status)s): %(response)s"
+msgstr ""
+"Falló la subida de la imagen (%(step)s, HTTP %(status)s): %(response)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_account.py:0
+msgid "Image upload failed (processing): %(response)s"
+msgstr "Falló la subida de la imagen (procesamiento): %(response)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_account.py:0
+msgid "Image upload failed: %(error)s"
+msgstr "Falló la subida de la imagen: %(error)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_account.py:0
+msgid "Image upload failed: X did not finish processing the image in time."
+msgstr ""
+"Falló la subida de la imagen: X no terminó de procesar la imagen a tiempo."
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__is_thread
 msgid "Is a thread"
 msgstr "Es un hilo"
@@ -191,6 +217,7 @@ msgid "Pro account (extended character limit and Articles)"
 msgstr "Cuenta Pro (caracteres extendidos y Artículos)"
 
 #. module: social_twitter_extended
+#: model:ir.actions.server,name:social_twitter_extended.action_social_x_article_publish
 #: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
 msgid "Publish"
 msgstr "Publicar"

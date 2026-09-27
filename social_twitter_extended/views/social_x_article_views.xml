@@ -96,6 +96,17 @@
         </field>
     </record>
 
+    <!-- "Publish" in the Actions menu of the list, for the selected Articles -->
+    <record id="action_social_x_article_publish" model="ir.actions.server">
+        <field name="name">Publish</field>
+        <field name="model_id" ref="model_social_x_article"/>
+        <field name="binding_model_id" ref="model_social_x_article"/>
+        <field name="binding_view_types">list</field>
+        <field name="group_ids" eval="[(4, ref('social.group_social_user'))]"/>
+        <field name="state">code</field>
+        <field name="code">records.action_publish()</field>
+    </record>
+
     <menuitem id="menu_social_x_article"
         name="X Articles"
         parent="social.menu_social_global"

@@ -11,14 +11,25 @@ class FakeXApi:
     """Records every POST sent to X and answers with incremental ids.
 
     :param fail_on: {call number (1-based): error text} to answer with an error
+    :param json_on: {call number (1-based): body} to answer a successful call with a given body
     """
 
-    def __init__(self, fail_on=None):
+    def __init__(self, fail_on=None, json_on=None):
         self.calls = []
         self.fail_on = fail_on or {}
+        self.json_on = json_on or {}
 
     def post(self, url, *args, **kwargs):
-        self.calls.append({"url": url, "json": kwargs.get("json"), "files": kwargs.get("files")})
+        return self._answer("POST", url, **kwargs)
+
+    def get(self, url, *args, **kwargs):
+        return self._answer("GET", url, **kwargs)
+
+    def _answer(self, method, url, **kwargs):
+        self.calls.append({
+            "method": method, "url": url, "json": kwargs.get("json"),
+            "files": kwargs.get("files"), "params": kwargs.get("params"),
+        })
         number = len(self.calls)
         response = MagicMock()
         if number in self.fail_on:
@@ -30,7 +41,8 @@ class FakeXApi:
             response.ok = True
             response.status_code = 200
             # `id` for posts, drafts and media, `post_id` for published Articles
-            response.json.return_value = {"data": {"id": str(1000 + number), "post_id": str(2000 + number)}}
+            response.json.return_value = self.json_on.get(
+                number, {"data": {"id": str(1000 + number), "post_id": str(2000 + number)}})
         return response
 
     @property
@@ -61,8 +73,10 @@ class SocialTwitterExtendedCase(SocialCase):
         return cls.env.ref("social_twitter.social_media_twitter")
 
     @contextmanager
-    def mock_x_api(self, fail_on=None):
-        api = FakeXApi(fail_on)
+    def mock_x_api(self, fail_on=None, json_on=None):
+        api = FakeXApi(fail_on, json_on)
         with patch("requests.post", side_effect=api.post), \
+                patch("requests.get", side_effect=api.get), \
+                patch("time.sleep"), \
                 patch.object(LinkTracker, "_get_title_from_url", lambda self, url: url):
             yield api

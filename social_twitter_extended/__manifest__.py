@@ -1,7 +1,7 @@
 {
     "name": "Social X extended",
     "summary": "Pro accounts, threads, campaign replies and Articles for X",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.0.1",
     "category": "Marketing/Social Marketing",
     "license": "AGPL-3",
     "author": "Zinapsia",
