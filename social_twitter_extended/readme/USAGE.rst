@@ -21,6 +21,11 @@ X Article:
 
 #. Go to *Social Marketing > X Articles* and create an Article.
 #. Choose a Pro X account, write or paste the body, optionally add a
-   cover image, a campaign and a reply URL.
-#. Click *Publish*. On error, the message returned by X is shown on the
-   Article: fix the cause, then *Reset to draft* and publish again.
+   cover image, a campaign and a reply URL, and a *First comment*.
+#. To publish it now, keep *When: Send now* and click *Publish*. To
+   schedule it, choose *When: Schedule later*, set the *Scheduled date*
+   and click *Schedule* (*Cancel schedule* puts it back to draft).
+#. On error, the message returned by X is shown on the Article: fix the
+   cause, then *Reset to draft* and publish again. If only the first
+   comment or the campaign reply failed, the Article stays published:
+   click *Retry comments*.

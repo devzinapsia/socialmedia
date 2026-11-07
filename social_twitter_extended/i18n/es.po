@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-27 22:29+0000\n"
+"POT-Creation-Date: 2026-11-07 14:42+0000\n"
 "PO-Revision-Date: 2026-09-27 22:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -51,6 +51,26 @@ msgid "Campaign"
 msgstr "Campaña"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_live_post_follow_up__follow_up_type__reply
+msgid "Campaign reply"
+msgstr "Respuesta de la campaña"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_reply_post_id
+msgid "Campaign reply X post id"
+msgstr "ID de la respuesta de la campaña en X"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Cancel schedule"
+msgstr "Cancelar programación"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_comments_pending
+msgid "Comments pending"
+msgstr "Comentarios pendientes"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__company_id
 msgid "Company"
 msgstr "Empresa"
@@ -77,12 +97,14 @@ msgid "Create an X Article"
 msgstr "Crear un Artículo de X"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__create_uid
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__create_uid
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__create_date
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__create_date
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__create_date
 msgid "Created on"
@@ -91,6 +113,7 @@ msgstr "Creado el"
 #. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_account__display_name
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post__display_name
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__display_name
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__display_name
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_template__display_name
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__display_name
@@ -116,6 +139,12 @@ msgstr ""
 "%s"
 
 #. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_account.py:0
+msgid "Empty answer from X (HTTP %s)"
+msgstr "Respuesta vacía de X (HTTP %s)"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__state__error
 #: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
 msgid "Error"
@@ -127,6 +156,16 @@ msgid "Error message"
 msgstr "Mensaje de error"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_first_comment
+msgid "First comment"
+msgstr "Primer comentario"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_first_comment_post_id
+msgid "First comment X post id"
+msgstr "ID del primer comentario en X"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__twitter_fixed_reply_template
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_fixed_reply_template
 #: model:ir.model.fields,field_description:social_twitter_extended.field_utm_campaign__twitter_fixed_reply_template
@@ -136,6 +175,7 @@ msgstr "Comentario fijo para X"
 #. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_account__id
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post__id
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__id
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__id
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_template__id
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__id
@@ -176,12 +216,14 @@ msgid "Is a thread"
 msgstr "Es un hilo"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__write_uid
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__write_uid
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__write_date
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__write_date
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__write_date
 msgid "Last Updated on"
@@ -197,6 +239,11 @@ msgstr ""
 "para dejar que otras empresas lo usen."
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__live_post_id
+msgid "Live post"
+msgstr "Publicación en vivo"
+
+#. module: social_twitter_extended
 #: model_terms:ir.actions.act_window,help:social_twitter_extended.action_social_x_article
 msgid ""
 "Long-form rich text posts, published with an X account flagged as Pro "
@@ -206,10 +253,20 @@ msgstr ""
 "marcada como cuenta Pro."
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__message
+msgid "Message"
+msgstr "Mensaje"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__account_id
 msgid "Only X accounts flagged as Pro accounts can publish Articles."
 msgstr ""
 "Solo las cuentas de X marcadas como cuentas Pro pueden publicar Artículos."
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Posted on X as a reply to the Article..."
+msgstr "Se publica en X como respuesta al Artículo..."
 
 #. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_account__is_pro_account
@@ -221,6 +278,11 @@ msgstr "Cuenta Pro (caracteres extendidos y Artículos)"
 #: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
 msgid "Publish"
 msgstr "Publicar"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__post_method
+msgid "Publish the Article immediately or schedule it at a later time."
+msgstr "Publicar el Artículo de inmediato o programarlo para más tarde."
 
 #. module: social_twitter_extended
 #: model:ir.model.fields,help:social_twitter_extended.field_social_post__is_thread
@@ -253,9 +315,48 @@ msgid "Reset to draft"
 msgstr "Restablecer a borrador"
 
 #. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Retry comments"
+msgstr "Reintentar comentarios"
+
+#. module: social_twitter_extended
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
+msgid "Schedule"
+msgstr "Programar"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__post_method__scheduled
+msgid "Schedule later"
+msgstr "Programar para después"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__state__scheduled
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "Scheduled"
+msgstr "Programado"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__scheduled_date
+#: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
+msgid "Scheduled date"
+msgstr "Fecha programada"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_x_article__post_method__now
+msgid "Send now"
+msgstr "Enviar ahora"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__sequence
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__sequence
 msgid "Sequence"
 msgstr "Secuencia"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "Set the scheduled date of the Article \"%s\"."
+msgstr "Indique la fecha programada del Artículo \"%s\"."
 
 #. module: social_twitter_extended
 #: model:ir.model,name:social_twitter_extended.model_social_account
@@ -288,10 +389,34 @@ msgid "Social post thread line"
 msgstr "Línea de hilo de publicación en redes sociales"
 
 #. module: social_twitter_extended
+#: model:ir.actions.server,name:social_twitter_extended.ir_cron_x_article_scheduled_ir_actions_server
+msgid "Social: Publish scheduled X Articles"
+msgstr "Social: publicar los Artículos de X programados"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__state
 #: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_search
 msgid "Status"
 msgstr "Estado"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_live_post__twitter_follow_ups_prepared
+msgid ""
+"Technical: set once the thread posts and the campaign reply of this X post "
+"are prepared. A retry then resumes from the first one not published yet."
+msgstr ""
+"Técnico: se marca una vez preparadas las publicaciones del hilo y la "
+"respuesta de la campaña de esta publicación de X. Un reintento continúa "
+"desde la primera que todavía no se publicó."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__twitter_comments_pending
+msgid ""
+"Technical: the Article is published, but its first comment or campaign reply"
+" failed and is not on X yet."
+msgstr ""
+"Técnico: el Artículo está publicado, pero su primer comentario o la "
+"respuesta de la campaña falló y todavía no está en X."
 
 #. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post_thread_line__body
@@ -311,6 +436,15 @@ msgstr ""
 "\"Conoce más en:\")."
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__twitter_first_comment
+msgid ""
+"Text posted on X as the first reply to the post of the published Article. "
+"Its links are tracked like the ones of the campaign reply."
+msgstr ""
+"Texto publicado en X como primera respuesta a la publicación del Artículo "
+"publicado. Sus enlaces se rastrean como los de la respuesta de la campaña."
+
+#. module: social_twitter_extended
 #. odoo-python
 #: code:addons/social_twitter_extended/models/social_x_article.py:0
 msgid "The Article \"%s\" is already published."
@@ -319,9 +453,25 @@ msgstr "El Artículo \"%s\" ya está publicado."
 #. module: social_twitter_extended
 #. odoo-python
 #: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid ""
+"The Article was published, but X did not return the id of its post (no link "
+"to it, and no comments): %(response)s"
+msgstr ""
+"El Artículo se publicó, pero X no devolvió el ID de su publicación (sin "
+"enlace a ella y sin comentarios): %(response)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
 msgid "The Article was published, but the campaign reply failed: %(error)s"
 msgstr ""
 "El Artículo se publicó, pero falló la respuesta de la campaña: %(error)s"
+
+#. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "The Article was published, but the first comment failed: %(error)s"
+msgstr "El Artículo se publicó, pero falló el primer comentario: %(error)s"
 
 #. module: social_twitter_extended
 #. odoo-python
@@ -347,6 +497,17 @@ msgstr ""
 "La publicación se publicó, pero falló la respuesta de la campaña: %(error)s"
 
 #. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "The scheduled date of the Article \"%s\" cannot be in the past."
+msgstr "La fecha programada del Artículo \"%s\" no puede estar en el pasado."
+
+#. module: social_twitter_extended
+#: model:ir.model.fields.selection,name:social_twitter_extended.selection__social_live_post_follow_up__follow_up_type__thread
+msgid "Thread post"
+msgstr "Publicación del hilo"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_post__thread_line_ids
 msgid "Thread posts"
 msgstr "Publicaciones del hilo"
@@ -358,6 +519,21 @@ msgid "Title"
 msgstr "Título"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__follow_up_type
+msgid "Type"
+msgstr "Tipo"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__twitter_reply_url
+msgid ""
+"URL posted on X after the fixed reply of the campaign, as a reply to the "
+"first comment, or to the post of the Article when there is no first comment."
+msgstr ""
+"URL publicada en X después de la respuesta fija de la campaña, como "
+"respuesta al primer comentario, o a la publicación del Artículo cuando no "
+"hay primer comentario."
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,help:social_twitter_extended.field_social_post__twitter_reply_url
 msgid ""
 "URL posted on X after the fixed reply of the campaign, as a reply to the "
@@ -367,18 +543,14 @@ msgstr ""
 "respuesta a la última publicación (la principal o la última del hilo)."
 
 #. module: social_twitter_extended
-#: model:ir.model.fields,help:social_twitter_extended.field_social_x_article__twitter_reply_url
-msgid ""
-"URL posted on X after the fixed reply of the campaign, as a reply to the "
-"post of the published Article."
-msgstr ""
-"URL que se publica en X después del comentario fijo de la campaña, como "
-"respuesta a la publicación del Artículo publicado."
-
-#. module: social_twitter_extended
 #: model:ir.model,name:social_twitter_extended.model_utm_campaign
 msgid "UTM Campaign"
 msgstr "Campaña UTM"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__post_method
+msgid "When"
+msgstr "Cuándo"
 
 #. module: social_twitter_extended
 #: model_terms:ir.ui.view,arch_db:social_twitter_extended.social_x_article_view_form
@@ -411,11 +583,33 @@ msgid "X account"
 msgstr "Cuenta de X"
 
 #. module: social_twitter_extended
+#. odoo-python
+#: code:addons/social_twitter_extended/models/social_x_article.py:0
+msgid "X did not return the id of the draft: %s"
+msgstr "X no devolvió el ID del borrador: %s"
+
+#. module: social_twitter_extended
+#: model:ir.model,name:social_twitter_extended.model_social_live_post_follow_up
+msgid "X follow-up post"
+msgstr "Publicación de seguimiento de X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post__twitter_follow_up_ids
+msgid "X follow-up posts"
+msgstr "Publicaciones de seguimiento de X"
+
+#. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post__twitter_follow_ups_prepared
+msgid "X follow-up posts prepared"
+msgstr "Publicaciones de seguimiento de X preparadas"
+
+#. module: social_twitter_extended
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_url
 msgid "X link"
 msgstr "Enlace en X"
 
 #. module: social_twitter_extended
+#: model:ir.model.fields,field_description:social_twitter_extended.field_social_live_post_follow_up__twitter_tweet_id
 #: model:ir.model.fields,field_description:social_twitter_extended.field_social_x_article__twitter_post_id
 msgid "X post id"
 msgstr "ID de la publicación en X"

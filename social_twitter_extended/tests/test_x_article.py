@@ -1,4 +1,5 @@
 import base64
+from unittest.mock import patch
 
 from odoo.exceptions import UserError, ValidationError
 from odoo.tests import tagged
@@ -193,3 +194,73 @@ class TestXArticle(SocialTwitterExtendedCase):
         self.assertEqual(init["json"]["media_type"], "image/png")
         self.assertEqual(init["json"]["total_bytes"], len(image_bytes))
         self.assertEqual(append["files"]["media"], image_bytes)
+
+    def test_publish_answer_without_post_id_keeps_article_published(self):
+        article = self._create_article(
+            utm_campaign_id=self.campaign.id, twitter_reply_url="https://www.example.com")
+        with self.mock_x_api(json_on={2: {"data": {"status": "published"}}}) as api:
+            article.action_publish()
+        # Published on X: kept published so that it is not published twice, no reply
+        self.assertEqual(len(api.calls), 2)
+        self.assertEqual(article.state, "published")
+        self.assertEqual(article.twitter_article_id, "1001")
+        self.assertFalse(article.twitter_post_id)
+        self.assertIn("did not return the id of its post", article.error_message)
+        self.assertIn('"status": "published"', article.error_message)
+
+    def test_draft_answer_without_id_is_an_error(self):
+        article = self._create_article()
+        with self.mock_x_api(json_on={1: {"data": {"title": "My Article"}}}) as api:
+            article.action_publish()
+        self.assertEqual(len(api.calls), 1)
+        self.assertEqual(article.state, "error")
+        self.assertFalse(article.twitter_article_id)
+        self.assertIn("did not return the id of the draft", article.error_message)
+
+    def test_non_json_answer_is_stored_as_is(self):
+        article = self._create_article()
+        with self.mock_x_api(json_on={1: "<html>Bad gateway</html>"}):
+            article.action_publish()
+        self.assertEqual(article.state, "error")
+        self.assertEqual(article.error_message, "<html>Bad gateway</html>")
+
+    def test_cover_initialize_answer_without_media_id(self):
+        article = self._create_article(cover_image=PNG_1PX)
+        with self.mock_x_api(json_on={1: {"data": {}}}) as api:
+            article.action_publish()
+        self.assertEqual(len(api.calls), 1)
+        self.assertEqual(article.state, "error")
+        self.assertIn("initialize, HTTP 200", article.error_message)
+
+    def test_reply_link_is_tracked_before_publishing(self):
+        article = self._create_article(
+            utm_campaign_id=self.campaign.id, twitter_reply_url="https://www.example.com/landing")
+        with self.mock_x_api() as api:
+            reply_message = article._prepare_twitter_reply_message()
+        self.assertFalse(api.calls)
+        tracker = self.env["link.tracker"].search([("url", "=", "https://www.example.com/landing")])
+        self.assertEqual(tracker.campaign_id, self.campaign)
+        self.assertEqual(reply_message, f"Learn more at: {tracker.short_url}")
+
+    def test_publish_commits_the_comment_links_before_calling_x(self):
+        articles = self._create_article(
+            utm_campaign_id=self.campaign.id, twitter_reply_url="https://www.example.com/first",
+            twitter_first_comment="Read https://www.example.com/comment",
+        ) | self._create_article(
+            title="Second", utm_campaign_id=self.campaign.id, twitter_reply_url="https://www.example.com/second",
+        )
+        commits = []
+        with self.mock_x_api() as api:
+            def record_commit(article):
+                trackers = self.env["link.tracker"].search([("url", "like", "https://www.example.com/%")])
+                commits.append((len(api.calls), sorted(trackers.mapped("url"))))
+
+            with patch.object(self.env.registry["social.x.article"], "_commit_twitter_progress", record_commit):
+                articles.action_publish()
+        # Before each Article: the links of its comments are tracked, then committed, before
+        # any call to X for it; then committed as soon as X has published it (before its
+        # comments), and once more after its comments
+        first = ["https://www.example.com/comment", "https://www.example.com/first"]
+        both = first + ["https://www.example.com/second"]
+        self.assertEqual(commits, [(0, first), (2, first), (4, first), (4, both), (6, both), (7, both)])
+        self.assertEqual(articles.mapped("state"), ["published", "published"])

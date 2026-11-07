@@ -3,7 +3,7 @@ import time
 
 import requests
 
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.addons.social_twitter.models.social_account import TWITTER_IMAGES_UPLOAD_ENDPOINT
 from odoo.tools.urls import urljoin as url_join
 
@@ -50,9 +50,30 @@ class SocialAccount(models.Model):
             )
         except requests.RequestException as error:
             raise TwitterApiError(str(error)) from error
-        if not result.ok:
-            raise TwitterApiError(result.text)
-        return result.json()["data"]["id"]
+        tweet_id = self._twitter_response_data(result).get("id") if result.ok else False
+        if not tweet_id:
+            # Also when X answers with a success status but no post (e.g. `errors` only)
+            raise TwitterApiError(self._twitter_error_text(result))
+        return tweet_id
+
+    @api.model
+    def _twitter_response_data(self, result):
+        """Return the `data` dict of an X response, or {} when the body has none.
+
+        Never raises: a body that is not JSON (e.g. an HTML error page of a
+        proxy) or that has no `data` object gives {}.
+        """
+        try:
+            body = result.json()
+        except ValueError:  # also the JSONDecodeError of requests
+            return {}
+        data = body.get("data") if isinstance(body, dict) else None
+        return data if isinstance(data, dict) else {}
+
+    @api.model
+    def _twitter_error_text(self, result):
+        """The raw answer of X to show as error, never empty."""
+        return result.text or _("Empty answer from X (HTTP %s)", result.status_code)
 
     def _twitter_upload_image(self, image_bytes, mimetype):
         """Upload an image through the v2 media upload of X and return its media id.
@@ -70,11 +91,15 @@ class SocialAccount(models.Model):
 
         def _check(step, result):
             if not result.ok:
-                raise TwitterApiError(_(
-                    "Image upload failed (%(step)s, HTTP %(status)s): %(response)s",
-                    step=step, status=result.status_code, response=result.text or "-",
-                ))
+                raise _upload_error(step, result)
             return result
+
+        def _upload_error(step, result):
+            # `self.env._`: a nested function has no `self` for `_` to detect the language
+            return TwitterApiError(self.env._(
+                "Image upload failed (%(step)s, HTTP %(status)s): %(response)s",
+                step=step, status=result.status_code, response=result.text or "-",
+            ))
 
         try:
             url = f"{TWITTER_MEDIA_UPLOAD_ENDPOINT}/initialize"
@@ -84,7 +109,9 @@ class SocialAccount(models.Model):
                 headers=self._get_twitter_oauth_header(url),
                 timeout=15,
             ))
-            media_id = result.json()["data"]["id"]
+            media_id = self._twitter_response_data(result).get("id")
+            if not media_id:
+                raise _upload_error("initialize", result)
 
             url = f"{TWITTER_MEDIA_UPLOAD_ENDPOINT}/{media_id}/append"
             _check("append", requests.post(
@@ -98,7 +125,7 @@ class SocialAccount(models.Model):
             url = f"{TWITTER_MEDIA_UPLOAD_ENDPOINT}/{media_id}/finalize"
             result = _check("finalize", requests.post(
                 url, headers=self._get_twitter_oauth_header(url), timeout=15))
-            processing = (result.json() or {}).get("data", {}).get("processing_info")
+            processing = self._twitter_response_data(result).get("processing_info")
             self._twitter_wait_media_processing(media_id, processing, _check)
         except requests.RequestException as error:
             raise TwitterApiError(_("Image upload failed: %(error)s", error=str(error))) from error
@@ -121,24 +148,24 @@ class SocialAccount(models.Model):
                 headers=self._get_twitter_oauth_header(TWITTER_MEDIA_UPLOAD_ENDPOINT, params=params, method="GET"),
                 timeout=15,
             ))
-            processing = (result.json() or {}).get("data", {}).get("processing_info")
+            processing = self._twitter_response_data(result).get("processing_info")
         raise TwitterApiError(_("Image upload failed: X did not finish processing the image in time."))
 
-    def _twitter_post_campaign_reply(self, campaign, reply_url, in_reply_to_tweet_id, utm_values=None):
-        """Reply to `in_reply_to_tweet_id` with the fixed reply of `campaign` followed by `reply_url`.
+    def _twitter_prepare_campaign_reply(self, campaign, reply_url, utm_values=None):
+        """Return the text of the campaign reply: the fixed reply of `campaign` followed by `reply_url`.
 
-        Shared by posts/threads and Articles, called right after their own
-        publication with the id of the last post of their chain.
+        Shared by posts/threads and Articles. Called before anything is sent
+        to X, so the link tracker of the URL is committed when X fetches it to
+        build the link card of the reply.
 
         :param utm_values: UTM values used to track the link, as for the main message
-        :return: the id of the reply, or False when there is nothing to reply
-        :raise TwitterApiError: with the raw response of X when it fails
+        :return: the text, or False when there is nothing to reply
         """
         self.ensure_one()
         template = campaign.sudo().twitter_fixed_reply_template
-        if not (template and reply_url and in_reply_to_tweet_id):
+        if not (template and reply_url):
             return False
         body = f"{template.strip()} {reply_url.strip()}"
         if utm_values:
             body = self.env["mail.render.mixin"].sudo()._shorten_links_text(body, utm_values)
-        return self._twitter_post_tweet(body, in_reply_to_tweet_id=in_reply_to_tweet_id)
+        return body

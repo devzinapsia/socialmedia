@@ -1,3 +1,4 @@
+import json
 from contextlib import contextmanager
 from unittest.mock import MagicMock, patch
 
@@ -11,7 +12,8 @@ class FakeXApi:
     """Records every POST sent to X and answers with incremental ids.
 
     :param fail_on: {call number (1-based): error text} to answer with an error
-    :param json_on: {call number (1-based): body} to answer a successful call with a given body
+    :param json_on: {call number (1-based): body} to answer a successful call with a given
+        body: a dict is sent as JSON, a string as a body that is not JSON (e.g. an HTML page)
     """
 
     def __init__(self, fail_on=None, json_on=None):
@@ -41,8 +43,13 @@ class FakeXApi:
             response.ok = True
             response.status_code = 200
             # `id` for posts, drafts and media, `post_id` for published Articles
-            response.json.return_value = self.json_on.get(
-                number, {"data": {"id": str(1000 + number), "post_id": str(2000 + number)}})
+            body = self.json_on.get(number, {"data": {"id": str(1000 + number), "post_id": str(2000 + number)}})
+            if isinstance(body, str):
+                response.text = body
+                response.json.side_effect = ValueError("Expecting value: line 1 column 1 (char 0)")
+            else:
+                response.text = json.dumps(body)
+                response.json.return_value = body
         return response
 
     @property

@@ -1,3 +1,5 @@
+from unittest.mock import patch
+
 from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 
@@ -112,3 +114,119 @@ class TestThreadAndReply(SocialTwitterExtendedCase):
         with self.mock_x_api() as api:
             post.action_post()
         self.assertEqual(api.tweet_calls[-1]["json"]["text"], too_long)
+
+    def test_follow_ups_prepared_when_live_post_is_created(self):
+        # Created with the live post, i.e. before `_action_post` commits and posts:
+        # the link trackers already exist when X fetches the links for their cards
+        post = self._create_post(
+            thread_lines=["Second https://www.example.com/thread", "Third"],
+            reply_url="https://www.example.com/landing",
+        )
+        live_post_model = self.env.registry["social.live.post"]
+        with self.mock_x_api() as api, patch.object(live_post_model, "_post", lambda self: None):
+            post.action_post()
+        self.assertFalse(api.calls)
+        live_post = post.live_post_ids
+        self.assertEqual(live_post.state, "ready")
+        self.assertTrue(live_post.twitter_follow_ups_prepared)
+        follow_ups = live_post.twitter_follow_up_ids
+        self.assertEqual(follow_ups.mapped("follow_up_type"), ["thread", "thread", "reply"])
+        self.assertFalse(any(follow_ups.mapped("twitter_tweet_id")))
+        for url, follow_up in (("https://www.example.com/thread", follow_ups[0]),
+                               ("https://www.example.com/landing", follow_ups[2])):
+            tracker = self.env["link.tracker"].search([("url", "=", url)])
+            self.assertEqual(tracker.campaign_id, self.campaign)
+            self.assertIn(tracker.short_url, follow_up.message)
+        self.assertEqual(follow_ups[1].message, "Third")
+        self.assertTrue(follow_ups[2].message.startswith("Learn more at: "))
+
+    def test_no_follow_ups_without_thread_nor_reply(self):
+        post = self._create_post()
+        with self.mock_x_api():
+            post.action_post()
+        self.assertTrue(post.live_post_ids.twitter_follow_ups_prepared)
+        self.assertFalse(post.live_post_ids.twitter_follow_up_ids)
+
+    def test_follow_up_ids_are_stored(self):
+        post = self._create_post(thread_lines=["Second"], reply_url="https://www.example.com")
+        with self.mock_x_api():
+            post.action_post()
+        self.assertEqual(post.live_post_ids.twitter_follow_up_ids.mapped("twitter_tweet_id"), ["1002", "1003"])
+
+    def test_retry_after_thread_failure_resumes_the_chain(self):
+        post = self._create_post(thread_lines=["Second", "Third"], reply_url="https://www.example.com")
+        with self.mock_x_api(fail_on={3: "line rejected"}):
+            post.action_post()
+        live_post = post.live_post_ids
+        self.assertEqual(live_post.state, "failed")
+
+        with self.mock_x_api() as api:
+            live_post.action_retry_post()
+        # The main post and the first line are not posted again: the chain resumes
+        # with the line that failed, replying to the last post published (1002)
+        calls = api.tweet_calls
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[0]["json"]["text"], "Third")
+        self.assertEqual(self._reply_to(calls[0]), "1002")
+        self.assertTrue(calls[1]["json"]["text"].startswith("Learn more at: "))
+        self.assertEqual(self._reply_to(calls[1]), "1001")
+        self.assertEqual(live_post.state, "posted")
+        self.assertFalse(live_post.failure_reason)
+        self.assertEqual(live_post.twitter_tweet_id, "1001")
+        self.assertEqual(live_post.twitter_follow_up_ids.mapped("twitter_tweet_id"), ["1002", "1001", "1002"])
+
+    def test_retry_after_reply_failure_posts_only_the_reply(self):
+        post = self._create_post(thread_lines=["Second"], reply_url="https://www.example.com")
+        with self.mock_x_api(fail_on={3: "reply rejected"}):
+            post.action_post()
+        live_post = post.live_post_ids
+        self.assertEqual(live_post.state, "failed")
+
+        with self.mock_x_api() as api:
+            live_post.action_retry_post()
+        calls = api.tweet_calls
+        self.assertEqual(len(calls), 1)
+        self.assertTrue(calls[0]["json"]["text"].startswith("Learn more at: "))
+        self.assertEqual(self._reply_to(calls[0]), "1002")
+        self.assertEqual(live_post.state, "posted")
+
+    def test_retry_failing_again_reports_the_same_step(self):
+        post = self._create_post(thread_lines=["Second", "Third"])
+        with self.mock_x_api(fail_on={3: "line rejected"}):
+            post.action_post()
+        live_post = post.live_post_ids
+        with self.mock_x_api(fail_on={1: "still rejected"}) as api:
+            live_post.action_retry_post()
+        self.assertEqual(len(api.tweet_calls), 1)
+        self.assertEqual(live_post.state, "failed")
+        self.assertIn("The main post and 1 thread post(s) were published", live_post.failure_reason)
+        self.assertIn("thread post 2 of 2 failed: still rejected", live_post.failure_reason)
+
+    def test_retry_live_post_created_before_follow_ups(self):
+        # Live posts failed before this version have no follow-up posts: the
+        # previous behavior applies, everything is posted again from the main post
+        post = self._create_post(thread_lines=["Second"])
+        with self.mock_x_api(fail_on={2: "line rejected"}):
+            post.action_post()
+        live_post = post.live_post_ids
+        live_post.twitter_follow_up_ids.unlink()
+        live_post.twitter_follow_ups_prepared = False
+
+        with self.mock_x_api() as api:
+            live_post.action_retry_post()
+        self.assertEqual([call["json"]["text"] for call in api.tweet_calls], ["Main post", "Second"])
+        self.assertEqual(live_post.state, "posted")
+        self.assertTrue(live_post.twitter_follow_ups_prepared)
+
+    def test_success_answer_without_post_keeps_the_raw_answer(self):
+        # A 2xx answer of X without the new post, as JSON or not, is reported as
+        # sent by X, not as the "Unknown error" of the core
+        for body, expected in (({"errors": [{"detail": "Something went wrong"}]}, "Something went wrong"),
+                               ("<html>Bad gateway</html>", "<html>Bad gateway</html>")):
+            post = self._create_post(thread_lines=["Second"])
+            with self.mock_x_api(json_on={2: body}):
+                post.action_post()
+            live_post = post.live_post_ids
+            self.assertEqual(live_post.state, "failed")
+            self.assertIn("thread post 1 of 1 failed: ", live_post.failure_reason)
+            self.assertIn(expected, live_post.failure_reason)

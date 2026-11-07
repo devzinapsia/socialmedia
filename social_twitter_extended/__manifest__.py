@@ -1,7 +1,7 @@
 {
     "name": "Social X extended",
     "summary": "Pro accounts, threads, campaign replies and Articles for X",
-    "version": "19.0.1.0.1",
+    "version": "19.0.1.0.2",
     "category": "Marketing/Social Marketing",
     "license": "AGPL-3",
     "author": "Zinapsia",
@@ -15,6 +15,7 @@
     "data": [
         "security/ir.model.access.csv",
         "security/social_twitter_extended_security.xml",
+        "data/ir_cron_data.xml",
         "views/social_account_views.xml",
         "views/social_post_views.xml",
         "views/utm_campaign_views.xml",

@@ -7,10 +7,18 @@
             <form string="X Article">
                 <header>
                     <button name="action_publish" string="Publish" type="object" class="oe_highlight"
-                        invisible="state == 'published'" groups="social.group_social_user"/>
+                        invisible="state not in ('draft', 'error') or post_method != 'now'"
+                        groups="social.group_social_user"/>
+                    <button name="action_schedule" string="Schedule" type="object" class="oe_highlight"
+                        invisible="state not in ('draft', 'error') or post_method != 'scheduled'"
+                        groups="social.group_social_user"/>
+                    <button name="action_retry_comments" string="Retry comments" type="object" class="oe_highlight"
+                        invisible="not twitter_comments_pending" groups="social.group_social_user"/>
                     <button name="action_set_draft" string="Reset to draft" type="object"
                         invisible="state != 'error'" groups="social.group_social_user"/>
-                    <field name="state" widget="statusbar"/>
+                    <button name="action_set_draft" string="Cancel schedule" type="object"
+                        invisible="state != 'scheduled'" groups="social.group_social_user"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,scheduled,published"/>
                 </header>
                 <sheet>
                     <div class="alert alert-danger" role="alert" invisible="not error_message">
@@ -28,20 +36,31 @@
                             <field name="account_id" options="{'no_create': True}"
                                 readonly="state == 'published'"/>
                             <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="post_method" widget="radio" invisible="state not in ('draft', 'error')"/>
+                            <field name="scheduled_date"
+                                invisible="post_method != 'scheduled' or state == 'published'"
+                                required="post_method == 'scheduled' and state != 'published'"/>
                         </group>
                         <group>
                             <field name="utm_campaign_id" readonly="state == 'published'"
                                 context="{'form_view_ref': 'social.utm_campaign_view_form_quick_create_social'}"/>
                             <field name="twitter_fixed_reply_template" invisible="1"/>
+                            <field name="twitter_comments_pending" invisible="1"/>
                             <field name="twitter_reply_url" widget="url"
                                 invisible="not twitter_fixed_reply_template"
-                                readonly="state == 'published'"/>
+                                readonly="state == 'published' and (not twitter_comments_pending or twitter_reply_post_id)"/>
                         </group>
+                    </group>
+                    <group>
+                        <field name="twitter_first_comment" placeholder="Posted on X as a reply to the Article..."
+                            readonly="state == 'published' and (not twitter_comments_pending or twitter_first_comment_post_id)"/>
                     </group>
                     <group string="Published on X" invisible="not twitter_article_id and not twitter_post_id">
                         <field name="twitter_url" widget="url" invisible="not twitter_url"/>
                         <field name="twitter_article_id"/>
                         <field name="twitter_post_id" invisible="not twitter_post_id"/>
+                        <field name="twitter_first_comment_post_id" invisible="not twitter_first_comment_post_id"/>
+                        <field name="twitter_reply_post_id" invisible="not twitter_reply_post_id"/>
                     </group>
                     <field name="body" widget="html" placeholder="Write or paste the Article here..."
                         readonly="state == 'published'"/>
@@ -58,9 +77,11 @@
                 <field name="title"/>
                 <field name="account_id"/>
                 <field name="utm_campaign_id"/>
+                <field name="scheduled_date" optional="show"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
                 <field name="state" widget="badge"
                     decoration-info="state == 'draft'"
+                    decoration-warning="state == 'scheduled'"
                     decoration-success="state == 'published'"
                     decoration-danger="state == 'error'"/>
             </list>
@@ -76,11 +97,13 @@
                 <field name="account_id"/>
                 <field name="utm_campaign_id"/>
                 <filter string="Draft" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+                <filter string="Scheduled" name="filter_scheduled" domain="[('state', '=', 'scheduled')]"/>
                 <filter string="Published" name="filter_published" domain="[('state', '=', 'published')]"/>
                 <filter string="Error" name="filter_error" domain="[('state', '=', 'error')]"/>
                 <group>
                     <filter string="Status" name="group_by_state" context="{'group_by': 'state'}"/>
                     <filter string="X account" name="group_by_account" context="{'group_by': 'account_id'}"/>
+                    <filter string="Scheduled date" name="group_by_scheduled_date" context="{'group_by': 'scheduled_date'}"/>
                 </group>
             </search>
         </field>

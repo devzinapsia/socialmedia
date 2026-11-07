@@ -3,3 +3,5 @@ access_social_post_thread_line_user,social.post.thread.line.user,model_social_po
 access_social_post_thread_line_manager,social.post.thread.line.manager,model_social_post_thread_line,social.group_social_manager,1,1,1,1
 access_social_x_article_user,social.x.article.user,model_social_x_article,social.group_social_user,1,1,1,1
 access_social_x_article_manager,social.x.article.manager,model_social_x_article,social.group_social_manager,1,1,1,1
+access_social_live_post_follow_up_user,social.live.post.follow.up.user,model_social_live_post_follow_up,social.group_social_user,1,1,1,1
+access_social_live_post_follow_up_manager,social.live.post.follow.up.manager,model_social_live_post_follow_up,social.group_social_manager,1,1,1,1
