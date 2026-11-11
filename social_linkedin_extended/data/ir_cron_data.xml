@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Retries the LinkedIn first comments left pending by a temporary error -->
+    <record id="ir_cron_retry_linkedin_first_comments" model="ir.cron">
+        <field name="name">Social: Retry LinkedIn first comments</field>
+        <field name="model_id" ref="social.model_social_live_post"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_retry_linkedin_first_comments()</field>
+        <field name="interval_number">60</field>
+        <field name="interval_type">minutes</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="active" eval="True"/>
+    </record>
+</odoo>

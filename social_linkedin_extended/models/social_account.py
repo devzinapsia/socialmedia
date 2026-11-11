@@ -27,6 +27,13 @@ SECRET_MASK = "[hidden]"
 CREDENTIAL_VALUE_PATTERN = re.compile(
     r"""(?i)((?:access_token|refresh_token|client_secret|id_token|token)["']?\s*[:=]\s*["']?)[^\s"'&,}]+""")
 BEARER_PATTERN = re.compile(r"(?i)(bearer\s+)[^\s\"',]+")
+# Comments read when looking for a comment already posted (newest first page)
+COMMENT_LOOKUP_COUNT = 100
+
+
+def normalize_comment_text(text):
+    """Text of a comment as compared with the one returned by LinkedIn."""
+    return (text or "").replace("\r\n", "\n").strip()
 
 
 @dataclass
@@ -203,6 +210,27 @@ class SocialAccount(models.Model):
                     _("LinkedIn answered with a success but without the id of the comment: %(body)s",
                       body=call.body))
         return call
+
+    def _linkedin_extended_find_comment(self, post_urn, text):
+        """Look on LinkedIn for a comment of this account with this text on a post.
+
+        Used before retrying a comment: a previous attempt may have created it
+        without Odoo knowing (timeout, worker killed before the commit...).
+
+        :return: (LinkedInCall, the matching comment as returned by LinkedIn, or None)
+        """
+        self.ensure_one()
+        call = self._linkedin_extended_request(
+            "GET", f"socialActions/{quote(post_urn)}/comments",
+            params={"start": 0, "count": COMMENT_LOOKUP_COUNT})
+        if not call.ok:
+            return call, None
+        expected = normalize_comment_text(text)
+        for comment in call.body.get("elements") or []:
+            if (comment.get("actor") == self.linkedin_account_urn
+                    and normalize_comment_text((comment.get("message") or {}).get("text")) == expected):
+                return call, comment
+        return call, None
 
     def _linkedin_extended_delete_comment(self, post_urn, comment_id):
         """Delete a comment of this account (the organization is passed as actor)."""

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="social_post_view_form_inherit_linkedin_extended" model="ir.ui.view">
+        <field name="name">social.post.view.form.inherit.linkedin.extended</field>
+        <field name="model">social.post</field>
+        <field name="inherit_id" ref="social.social_post_view_form"/>
+        <field name="arch" type="xml">
+            <field name="utm_campaign_id" position="after">
+                <field name="has_linkedin_account" invisible="1"/>
+                <field name="linkedin_first_comment"
+                    invisible="not has_linkedin_account"
+                    readonly="state in ['posting', 'posted']"
+                    placeholder="e.g. Read the full article: https://..."/>
+            </field>
+            <xpath expr="//group[@name='live_posts']" position="after">
+                <group name="linkedin_first_comments" colspan="2" string="LinkedIn first comment"
+                    invisible="state not in ['posting', 'posted'] or not linkedin_comment_live_post_ids">
+                    <field name="linkedin_comment_live_post_ids" nolabel="1" colspan="2" readonly="1">
+                        <list create="0" delete="0" no_open="1">
+                            <!-- Short labels: the group title already says "LinkedIn first comment" -->
+                            <field name="account_id" string="Account"/>
+                            <field name="linkedin_comment_state" string="Status" widget="badge"
+                                decoration-info="linkedin_comment_state == 'pending'"
+                                decoration-success="linkedin_comment_state == 'posted'"
+                                decoration-danger="linkedin_comment_state == 'failed'"/>
+                            <field name="linkedin_comment_date" string="Date"/>
+                            <field name="linkedin_comment_attempts" string="Attempts"/>
+                            <field name="linkedin_comment_error" string="Last error"/>
+                            <field name="linkedin_comment_message" string="Text" optional="hide"/>
+                            <field name="linkedin_comment_urn" string="Comment URN" optional="hide"/>
+                            <button name="action_retry_linkedin_comment" type="object" string="Retry comment"
+                                icon="fa-repeat" groups="social.group_social_manager"
+                                invisible="linkedin_comment_state != 'failed'"/>
+                        </list>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="social_post_view_search_inherit_linkedin_extended" model="ir.ui.view">
+        <field name="name">social.post.view.search.inherit.linkedin.extended</field>
+        <field name="model">social.post</field>
+        <field name="inherit_id" ref="social.social_post_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="filter_my_posts" position="after">
+                <filter name="filter_linkedin_comment_failed" string="LinkedIn comment failed"
+                    domain="[('live_post_ids.linkedin_comment_state', '=', 'failed')]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

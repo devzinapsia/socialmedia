@@ -1,7 +1,7 @@
 {
     "name": "Social LinkedIn extended",
-    "summary": "LinkedIn comment diagnostics for Social Marketing",
-    "version": "19.0.1.0.0",
+    "summary": "First comment on LinkedIn posts, instant and scheduled, with diagnostics",
+    "version": "19.0.1.0.1",
     "category": "Marketing/Social Marketing",
     "license": "AGPL-3",
     "author": "Zinapsia",
@@ -14,8 +14,11 @@
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter_data.xml",
+        "data/ir_cron_data.xml",
         "wizard/social_linkedin_comment_test_views.xml",
         "views/social_account_views.xml",
+        "views/social_post_views.xml",
+        "views/utm_campaign_views.xml",
     ],
     "auto_install": False,
     "application": False,

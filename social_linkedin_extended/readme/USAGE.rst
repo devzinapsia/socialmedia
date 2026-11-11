@@ -1,5 +1,25 @@
+Adding a first comment to a post
+--------------------------------
+
+#. Create a post in *Social Marketing* and select at least one LinkedIn
+   account: the *LinkedIn first comment* field appears.
+#. Write the comment (plain text, 1000 characters at most), e.g.
+   ``Read the full article: https://www.example.com/article``. If the campaign
+   of the post has a default first comment, it is pre-filled and can be edited.
+#. Post now or schedule the post as usual.
+
+Once the post is published, the *LinkedIn first comment* section of the post
+shows, for each LinkedIn account, the status of the comment (*Pending*,
+*Posted*, *Failed*), its date, the number of attempts and the last error. The
+final text, with its tracked links, and the LinkedIn URN of the comment are
+available as optional columns.
+
+On a failed comment, fix the cause given in the error (e.g. reconnect the
+account), then click *Retry comment* (Social Marketing managers only). Use the
+*LinkedIn comment failed* filter of the posts to find them.
+
 How to run the diagnostics
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+--------------------------
 
 Only Social Marketing managers (group *Social Marketing / Social Manager*) can
 run it.

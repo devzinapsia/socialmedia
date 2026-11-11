@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-11 18:39+0000\n"
-"PO-Revision-Date: 2026-11-11 18:39+0000\n"
+"POT-Creation-Date: 2026-11-11 19:42+0000\n"
+"PO-Revision-Date: 2026-11-11 19:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -60,6 +60,11 @@ msgid "Access token: present (never shown)"
 msgstr "Token de acceso: presente (nunca se muestra)"
 
 #. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "Account marked as disconnected in Odoo: %(value)s"
@@ -72,6 +77,11 @@ msgid "Account: %(name)s (id %(id)s)"
 msgstr "Cuenta: %(name)s (id %(id)s)"
 
 #. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Attempts"
+msgstr "Intentos"
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "Author URN: %(urn)s"
@@ -81,6 +91,11 @@ msgstr "URN del autor: %(urn)s"
 #: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_linkedin_comment_test_view_form
 msgid "Close"
 msgstr "Cerrar"
+
+#. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Comment URN"
+msgstr "URN del comentario"
 
 #. module: social_linkedin_extended
 #. odoo-python
@@ -100,6 +115,12 @@ msgid "Copy report"
 msgstr "Copiar informe"
 
 #. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "Could not check whether the comment was already posted."
+msgstr "No se pudo verificar si el comentario ya estaba publicado."
+
+#. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__create_uid
 msgid "Created by"
 msgstr "Creado por"
@@ -110,14 +131,27 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Date"
+msgstr "Fecha"
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "Date (UTC): %(date)s"
 msgstr "Fecha (UTC): %(date)s"
 
 #. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_utm_campaign__linkedin_first_comment_template
+msgid "Default first comment for LinkedIn"
+msgstr "Comentario inicial por defecto para LinkedIn"
+
+#. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_account__display_name
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__display_name
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__display_name
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_post__display_name
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_utm_campaign__display_name
 msgid "Display Name"
 msgstr "Nombre para mostrar"
 
@@ -144,6 +178,20 @@ msgid "Expiry: unknown"
 msgstr "Vencimiento: desconocido"
 
 #. module: social_linkedin_extended
+#: model:ir.model.fields.selection,name:social_linkedin_extended.selection__social_live_post__linkedin_comment_state__failed
+msgid "Failed"
+msgstr "Fallido"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_social_live_post__linkedin_comment_message
+msgid ""
+"Final text of the first comment, with its tracked links, as posted (or to "
+"post) on LinkedIn."
+msgstr ""
+"Texto final del primer comentario, con sus enlaces con seguimiento, tal como"
+" se publicó (o se publicará) en LinkedIn."
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "Granted permissions: %(scope)s"
@@ -162,10 +210,28 @@ msgid "HTTP %(status)s, %(ms)s ms"
 msgstr "HTTP %(status)s, %(ms)s ms"
 
 #. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "HTTP %(status)s: %(error)s"
+msgstr "HTTP %(status)s: %(error)s"
+
+#. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_account__id
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__id
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__id
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_post__id
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_utm_campaign__id
 msgid "ID"
 msgstr "ID"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid ""
+"Invalid, expired or revoked access token: reconnect the LinkedIn account."
+msgstr ""
+"Token de acceso inválido, vencido o revocado: hay que volver a conectar la "
+"cuenta de LinkedIn."
 
 #. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__write_uid
@@ -178,6 +244,21 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Last error"
+msgstr "Último error"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid ""
+"LinkedIn API version %(version)s not active anymore: update the system "
+"parameter social_linkedin_extended.api_version."
+msgstr ""
+"La versión %(version)s de la API de LinkedIn ya no está activa: hay que "
+"actualizar el parámetro del sistema social_linkedin_extended.api_version."
+
+#. module: social_linkedin_extended
 #: model:ir.model.fields,help:social_linkedin_extended.field_social_linkedin_comment_test__post_urn
 msgid ""
 "LinkedIn URN of a post of this page (urn:li:share:... or "
@@ -187,6 +268,16 @@ msgstr ""
 "URN de LinkedIn de un post de esta página (urn:li:share:... o "
 "urn:li:ugcPost:...). Por defecto, el último post publicado por esta cuenta "
 "desde Odoo o, si no hay, su último post obtenido en el Feed."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid ""
+"LinkedIn accepted the comment without returning its id: check the post on "
+"LinkedIn before retrying (%(error)s)."
+msgstr ""
+"LinkedIn aceptó el comentario sin devolver su id: revisa el post en LinkedIn"
+" antes de reintentar (%(error)s)."
 
 #. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__account_id
@@ -201,6 +292,26 @@ msgid ""
 msgstr "LinkedIn respondió con éxito pero sin el id del comentario: %(body)s"
 
 #. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_id
+msgid "LinkedIn comment ID"
+msgstr "Id del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_urn
+msgid "LinkedIn comment URN"
+msgstr "URN del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_attempts
+msgid "LinkedIn comment attempts"
+msgstr "Intentos del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_date
+msgid "LinkedIn comment date"
+msgstr "Fecha del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 #: model:ir.model,name:social_linkedin_extended.model_social_linkedin_comment_test
@@ -208,10 +319,53 @@ msgid "LinkedIn comment diagnostics"
 msgstr "Diagnóstico de comentarios en LinkedIn"
 
 #. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_error
+msgid "LinkedIn comment error"
+msgstr "Error del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_search_inherit_linkedin_extended
+msgid "LinkedIn comment failed"
+msgstr "Comentario en LinkedIn fallido"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_state
+msgid "LinkedIn comment status"
+msgstr "Estado del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_live_post__linkedin_comment_message
+msgid "LinkedIn comment text"
+msgstr "Texto del comentario en LinkedIn"
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "LinkedIn error: %(error)s"
 msgstr "Error de LinkedIn: %(error)s"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_post__linkedin_first_comment
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "LinkedIn first comment"
+msgstr "Primer comentario en LinkedIn"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "LinkedIn first comment failed on %(account)s: %(reason)s"
+msgstr "Falló el primer comentario en LinkedIn en %(account)s: %(reason)s"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "LinkedIn first comment posted on %(account)s."
+msgstr "Primer comentario en LinkedIn publicado en %(account)s."
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,field_description:social_linkedin_extended.field_social_post__linkedin_comment_live_post_ids
+msgid "LinkedIn first comments"
+msgstr "Primeros comentarios en LinkedIn"
 
 #. module: social_linkedin_extended
 #. odoo-python
@@ -230,9 +384,47 @@ msgstr ""
 
 #. module: social_linkedin_extended
 #. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "LinkedIn rate limit reached."
+msgstr "Se alcanzó el límite de frecuencia de LinkedIn."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "LinkedIn refused the comment."
+msgstr "LinkedIn rechazó el comentario."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid ""
+"Missing permission to comment as this page (w_organization_social_feed)."
+msgstr ""
+"Falta el permiso para comentar como esta página "
+"(w_organization_social_feed)."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid ""
+"Missing permission to read the comments of the page "
+"(r_organization_social_feed), needed to check that the comment was not "
+"already posted."
+msgstr ""
+"Falta el permiso para leer los comentarios de la página "
+"(r_organization_social_feed), necesario para verificar que el comentario no "
+"se haya publicado ya."
+
+#. module: social_linkedin_extended
+#. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "No"
 msgstr "No"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields.selection,name:social_linkedin_extended.selection__social_live_post__linkedin_comment_state__none
+msgid "None"
+msgstr "Ninguno"
 
 #. module: social_linkedin_extended
 #. odoo-python
@@ -248,11 +440,40 @@ msgstr ""
 
 #. module: social_linkedin_extended
 #. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "Only Social Marketing managers can retry LinkedIn comments."
+msgstr ""
+"Solo los administradores de Marketing social pueden reintentar comentarios "
+"en LinkedIn."
+
+#. module: social_linkedin_extended
+#. odoo-python
 #: code:addons/social_linkedin_extended/models/social_account.py:0
 msgid "Only Social Marketing managers can test LinkedIn comments."
 msgstr ""
 "Solo los administradores de Marketing social pueden probar comentarios en "
 "LinkedIn."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "Only a failed LinkedIn comment can be retried."
+msgstr "Solo se puede reintentar un comentario en LinkedIn fallido."
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields.selection,name:social_linkedin_extended.selection__social_live_post__linkedin_comment_state__pending
+msgid "Pending"
+msgstr "Pendiente"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_social_post__linkedin_first_comment
+msgid ""
+"Plain text posted as a comment by the same LinkedIn page right after the "
+"post is published on it (e.g. to share a link outside the body of the post)."
+msgstr ""
+"Texto plano que la misma página de LinkedIn publica como comentario justo "
+"después de publicar el post (p. ej., para compartir un enlace fuera del "
+"cuerpo del post)."
 
 #. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__post_urn
@@ -264,6 +485,34 @@ msgstr "URN del post"
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "Post URN: %(urn)s"
 msgstr "URN del post: %(urn)s"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "Post not found on LinkedIn (it may not be available yet)."
+msgstr ""
+"No se encontró el post en LinkedIn (puede que todavía no esté disponible)."
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields.selection,name:social_linkedin_extended.selection__social_live_post__linkedin_comment_state__posted
+msgid "Posted"
+msgstr "Publicado"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_social_post__linkedin_comment_live_post_ids
+msgid "Posts by LinkedIn account with the status of their first comment."
+msgstr "Posts por cuenta de LinkedIn con el estado de su primer comentario."
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_utm_campaign__linkedin_first_comment_template
+msgid ""
+"Pre-fills the LinkedIn first comment of the posts of this campaign that "
+"target a LinkedIn account, while their first comment is empty. It can be "
+"edited on each post."
+msgstr ""
+"Precarga el primer comentario en LinkedIn de los posts de esta campaña que "
+"se publican en una cuenta de LinkedIn, mientras su primer comentario esté "
+"vacío. Se puede editar en cada post."
 
 #. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__report
@@ -398,6 +647,11 @@ msgstr ""
 "comentario de prueba."
 
 #. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Retry comment"
+msgstr "Reintentar comentario"
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid ""
@@ -426,9 +680,45 @@ msgid "Social Account"
 msgstr "Cuenta de red social"
 
 #. module: social_linkedin_extended
+#: model:ir.model,name:social_linkedin_extended.model_social_live_post
+msgid "Social Live Post"
+msgstr "Publicación en redes sociales en vivo"
+
+#. module: social_linkedin_extended
+#: model:ir.model,name:social_linkedin_extended.model_social_post
+msgid "Social Post"
+msgstr "Publicación en redes sociales"
+
+#. module: social_linkedin_extended
+#: model:ir.actions.server,name:social_linkedin_extended.ir_cron_retry_linkedin_first_comments_ir_actions_server
+msgid "Social: Retry LinkedIn first comments"
+msgstr "Redes sociales: reintentar primeros comentarios en LinkedIn"
+
+#. module: social_linkedin_extended
 #: model:ir.model.fields,field_description:social_linkedin_extended.field_social_linkedin_comment_test__state
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
 msgid "Status"
 msgstr "Estado"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_social_live_post__linkedin_comment_state
+msgid ""
+"Status of the first comment of the post on this LinkedIn account:\n"
+"- None: no first comment to post\n"
+"- Pending: not posted yet, or a temporary error to retry\n"
+"- Posted: the comment is on LinkedIn\n"
+"- Failed: LinkedIn refused it, or every retry failed"
+msgstr ""
+"Estado del primer comentario del post en esta cuenta de LinkedIn:\n"
+"- Ninguno: no hay primer comentario para publicar\n"
+"- Pendiente: todavía no se publicó, o hubo un error temporal que se reintentará\n"
+"- Publicado: el comentario está en LinkedIn\n"
+"- Fallido: LinkedIn lo rechazó, o fallaron todos los reintentos"
+
+#. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_social_live_post__linkedin_comment_error
+msgid "Summary of the last error returned by LinkedIn for the comment."
+msgstr "Resumen del último error que devolvió LinkedIn para el comentario."
 
 #. module: social_linkedin_extended
 #. odoo-python
@@ -446,6 +736,17 @@ msgid "Test comment deleted."
 msgstr "Comentario de prueba eliminado."
 
 #. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+msgid "Text"
+msgstr "Texto"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "The LinkedIn account has no access token: reconnect it."
+msgstr "La cuenta de LinkedIn no tiene token de acceso: vuelve a conectarla."
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/models/social_account.py:0
 msgid "The LinkedIn comment test is only available for LinkedIn accounts."
@@ -455,10 +756,49 @@ msgstr ""
 
 #. module: social_linkedin_extended
 #. odoo-python
+#: code:addons/social_linkedin_extended/models/social_post.py:0
+msgid "The LinkedIn first comment cannot be empty or contain only spaces."
+msgstr ""
+"El primer comentario en LinkedIn no puede estar vacío ni contener solo "
+"espacios."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_post.py:0
+msgid ""
+"The LinkedIn first comment is too long: %(length)s characters (max %(max)s)."
+msgstr ""
+"El primer comentario en LinkedIn es demasiado largo: %(length)s caracteres "
+"(máx. %(max)s)."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid ""
+"The comment is too long once its links are tracked: %(length)s characters "
+"(max %(max)s)."
+msgstr ""
+"El comentario es demasiado largo con los enlaces con seguimiento: %(length)s"
+" caracteres (máx. %(max)s)."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "The comment text is empty."
+msgstr "El texto del comentario está vacío."
+
+#. module: social_linkedin_extended
+#. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "The post URN must start with “urn:li:” (e.g. urn:li:share:123)."
 msgstr ""
 "La URN del post debe empezar con “urn:li:” (p. ej., urn:li:share:123)."
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "The post is not published on LinkedIn: retry the post first."
+msgstr "El post no está publicado en LinkedIn: primero reintenta el post."
 
 #. module: social_linkedin_extended
 #: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_linkedin_comment_test_view_form
@@ -488,6 +828,17 @@ msgid "Token introspection: %(call)s"
 msgstr "Consulta del token: %(call)s"
 
 #. module: social_linkedin_extended
+#: model:ir.model,name:social_linkedin_extended.model_utm_campaign
+msgid "UTM Campaign"
+msgstr "Campaña UTM"
+
+#. module: social_linkedin_extended
+#. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "Unexpected error, see the server log."
+msgstr "Error inesperado, consulta el log del servidor."
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid ""
@@ -496,10 +847,21 @@ msgstr ""
 "ATENCIÓN: el comentario de prueba NO se eliminó, bórralo a mano en LinkedIn."
 
 #. module: social_linkedin_extended
+#: model:ir.model.fields,help:social_linkedin_extended.field_social_live_post__linkedin_comment_date
+msgid "When the comment was posted, or when the last attempt was made."
+msgstr "Cuándo se publicó el comentario, o cuándo se hizo el último intento."
+
+#. module: social_linkedin_extended
 #. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "Yes"
 msgstr "Sí"
+
+#. module: social_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.social_post_view_form_inherit_linkedin_extended
+#: model_terms:ir.ui.view,arch_db:social_linkedin_extended.utm_campaign_view_form_inherit_linkedin_extended
+msgid "e.g. Read the full article: https://..."
+msgstr "p. ej., Lee el artículo completo: https://..."
 
 #. module: social_linkedin_extended
 #. odoo-python
@@ -509,12 +871,19 @@ msgstr "no existe"
 
 #. module: social_linkedin_extended
 #. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
+msgid "network error: %(error)s"
+msgstr "error de red: %(error)s"
+
+#. module: social_linkedin_extended
+#. odoo-python
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "no HTTP answer (network error), %(ms)s ms"
 msgstr "sin respuesta HTTP (error de red), %(ms)s ms"
 
 #. module: social_linkedin_extended
 #. odoo-python
+#: code:addons/social_linkedin_extended/models/social_live_post.py:0
 #: code:addons/social_linkedin_extended/wizard/social_linkedin_comment_test.py:0
 msgid "no details"
 msgstr "sin detalles"
