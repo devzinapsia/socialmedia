@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="social_account_view_form_inherit_linkedin_extended" model="ir.ui.view">
+        <field name="name">social.account.view.form.inherit.linkedin.extended</field>
+        <field name="model">social.account</field>
+        <field name="inherit_id" ref="social.social_account_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="media_type" invisible="1"/>
+                <button name="action_open_linkedin_comment_test" type="object" string="Test LinkedIn comment"
+                        groups="social.group_social_manager" invisible="media_type != 'linkedin'"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

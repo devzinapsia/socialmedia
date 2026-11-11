@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="social_linkedin_comment_test_view_form" model="ir.ui.view">
+        <field name="name">social.linkedin.comment.test.view.form</field>
+        <field name="model">social.linkedin.comment.test</field>
+        <field name="arch" type="xml">
+            <form string="Test LinkedIn comment">
+                <field name="state" invisible="1"/>
+                <div class="alert alert-warning" role="alert" invisible="state != 'draft'">
+                    This creates and then deletes a real comment on that page.
+                </div>
+                <group>
+                    <field name="account_id" options="{'no_open': True}"/>
+                    <field name="post_urn" readonly="state != 'draft'" required="1" placeholder="urn:li:share:..."/>
+                </group>
+                <div invisible="state != 'done'">
+                    <field name="report" widget="CopyClipboardButton" string="Copy report"/>
+                    <field name="report" nolabel="1" class="font-monospace"/>
+                </div>
+                <footer>
+                    <button name="action_run_test" type="object" string="Run test" class="btn-primary"
+                            invisible="state != 'draft'" data-hotkey="q"/>
+                    <button string="Close" special="cancel" class="btn-secondary" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- LinkedIn-Version header (YYYYMM) sent by the calls of this module only.
+         LinkedIn retires each version about one year after its release: update
+         this value in Settings > Technical > System Parameters (see README). -->
+    <record id="config_parameter_linkedin_api_version" model="ir.config_parameter">
+        <field name="key">social_linkedin_extended.api_version</field>
+        <field name="value">202610</field>
+    </record>
+</odoo>
